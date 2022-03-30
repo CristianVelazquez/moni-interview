@@ -6,7 +6,7 @@ RUN apk update
 
 COPY requirements.txt .
 
-RUN apk --no-cache --update add build-base #similar a build-essential 
+RUN apk --no-cache --update add build-base  
 
 RUN pip install --upgrade pip
 
