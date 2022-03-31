@@ -38,5 +38,5 @@ jobs:
           ssh_host: ${{ secrets.HOST_DNS }}
           ssh_user: ${{ secrets.USERNAME }}
           ssh_key: ${{ secrets.EC2_SSH_KEY }}
-          compose_file: docker-compose.yml
+          compose_file:/home/ubuntu/docker-compose.yml
           build: true
