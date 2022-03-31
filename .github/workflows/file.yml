@@ -1,0 +1,24 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  push_to_registry:
+    name: Push Docker image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repo  #hace el pull en el runner para que tenga el codigo y buildear
+        uses: actions/checkout@v2
+
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: CristianVelazquez/moni-interview
+          tag_with_ref: true  #recarga la imagen con el nombre del brach
+          tag_with_sha: true  #para agregar el comentario del commit
+          tags: latest, ${{ github.sha }} #comentario corto
