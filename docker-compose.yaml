@@ -1,46 +1,9 @@
-version: "3.2"
+version: "3"
+
 services:
-  postgres:
-    container_name: postgres
-    restart: always
-    image: postgres:9.6-alpine
-    environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=mypassword
-    volumes:
-      - postgres:/var/lib/postgresql/data
-      - ./postgres/initdb:/docker-entrypoint-initdb.d
+  nginxfile:
+    build: .
     ports:
-      - "5432:5432"
-  
-  backend:
-    build: ./backend
-    volumes:
-      - ./backend:/app/backend
-    ports:
-      - "8000:8000"
-    env_file: myenv
+      - "80:80"
     stdin_open: true
     tty: true
-    command: python3 manage.py runserver 0.0.0.0:8000
-    #command: python3 manage.py migrate
-    depends_on:
-      - postgres
-  
-  frontend:
-    build: ./frontend
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=development
-    depends_on:
-      - backend
-    command: npm start
-    
-    
-volumes:
-   postgres:   
