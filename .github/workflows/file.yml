@@ -32,3 +32,8 @@ jobs:
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
+      - uses: actions/checkout@v2
+      - name: run docker-compose
+        uses: sudo-bot/action-docker-compose@latest
+        with:
+        cli-args: "up"
