@@ -24,8 +24,11 @@ jobs:
           tag_with_sha: true  #para agregar el comentario del commit
           tags: latest, ${{ github.sha }} #comentario corto
        
-      - uses: actions/checkout@v2
-      - name: run docker-compose
-        uses: sudo-bot/action-docker-compose@latest
-        with:
-            cli-args: "up"
+      
+      - name: Deploy to Server 1
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${ { secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${ { secrets.HOST_DNS }}
+          REMOTE_USER: ${ { secrets.USERNAME }}
+          TARGET: ${ { secrets.TARGET_DIR }}
