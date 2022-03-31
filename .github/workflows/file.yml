@@ -33,7 +33,10 @@ jobs:
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
       - uses: actions/checkout@v2
-      - name: run docker-compose
-        uses: sudo-bot/action-docker-compose@latest
+      - uses: chaplyk/docker-compose-remote-action@v1.1
         with:
-            cli-args: "up"
+          ssh_host: ${{ secrets.HOST_DNS }}
+          ssh_user: ${{ secrets.USERNAME }}
+          ssh_key: ${{ secrets.EC2_SSH_KEY }}
+          compose_file: docker-compose.yml
+          build: true
