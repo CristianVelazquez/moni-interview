@@ -2,8 +2,9 @@ name: Build and Deploy
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      nginx/index.html
+
 jobs:
   push_to_registry:
     name: Push Docker image
