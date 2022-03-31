@@ -32,4 +32,12 @@ jobs:
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
-        run: docker-compose up -d
+
+      - uses: actions/checkout@v2
+      - uses: chaplyk/docker-compose-remote-action@v1.1
+        with:
+          ssh_host: ${{ secrets.HOST_DNS }}
+          ssh_user: ${{ secrets.USERNAME }}
+          ssh_key: ${{ secrets.EC2_SSH_KEY }}
+          compose_file: docker-compose.yaml
+          build: true
