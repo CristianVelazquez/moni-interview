@@ -23,3 +23,7 @@ jobs:
           tag_with_ref: true  #recarga la imagen con el nombre del brach
           tag_with_sha: true  #para agregar el comentario del commit
           tags: latest, ${{ github.sha }} #comentario corto
+       
+      - uses: actions/checkout@v2
+      - name: run docker-compose
+        run: docker-compose up -d
